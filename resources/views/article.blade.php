@@ -7,7 +7,7 @@
                     <a href="/article/{{$article->id}}"><h3>{{$article->title}}</h3></a>
                 </div>
                 <p>{{$article->body}}</p>
-                <p class="post-meta">Views: Posted by
+                <p class="post-meta">Views: {{$views}} Posted by
                 <a href="#">{{$article->author->name}}</a>
                 on {{$article->created_at->format('M d Y')}}</p>
             </div>
