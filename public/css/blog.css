@@ -1,0 +1,35 @@
+
+
+
+body {
+    background: #e2e2e2;
+}
+
+header {
+    min-height: 50px;
+    background: #666;
+    padding: 20px;
+    margin-bottom: 15px;
+}
+
+.footer-content {
+    padding-top: 10px;
+}
+
+.header-title,
+.header-sub {
+    color: #e2e2e2;
+}
+
+.header-sub {
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    padding: 3px 0;
+}
+
+.content {
+    width:100%;
+    background: #fff;
+    padding: 20px;
+    margin-bottom: 10px;
+}

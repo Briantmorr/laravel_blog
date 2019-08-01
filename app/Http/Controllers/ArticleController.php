@@ -3,6 +3,7 @@
 use Response;
 use Illuminate\Http\Request;
 use App\Models\Article;
+use App\Models\Msstatus;
 
 class ArticleController extends Controller{
     // Declaration of Class Variables
@@ -20,7 +21,8 @@ class ArticleController extends Controller{
      * @return Response
      */
     public function index(Request $request) {
-        return Article::all();
+        $articles = Article::where('status_id', '=', Msstatus::PUBLISHED)->get();
+        return view('article', ['articles' => $articles]);
     }
 
     public function store() {
@@ -36,7 +38,7 @@ class ArticleController extends Controller{
      */
     public function show($id) {
         if($article = Article::find($id)) {
-            return $article;
+            return view('article', ['articles' => [$article]]);
         }
         
         // handle errors in view
