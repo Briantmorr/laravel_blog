@@ -1,4 +1,5 @@
 <?php
+use Illuminate\Support\Facades\Session;
 
 /*
 |--------------------------------------------------------------------------
@@ -11,9 +12,12 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/', ['uses' =>'ArticleController@index']);
+
+$router->resource('/article', 'ArticleController');
+
+Route::get('/logout', function() {
+    // simple way to flush session, and simulating logout
+    Session::flush();
+    return redirect('/');
 });
-
-
-
