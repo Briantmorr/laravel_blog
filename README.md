@@ -1,6 +1,6 @@
 ![laravel](/resources/img/laravel_header.png)
 # laravel_blog
-![demo_blog](/resources/img/blog_demo.png)
+![demo_blog](/resources/img/blog_demo.PNG)
 
 
 
