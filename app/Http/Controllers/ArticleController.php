@@ -14,7 +14,6 @@ class ArticleController extends Controller{
     // TODO: implement article interface/ repo pattern
     public function __construct(ArticleRepositoryInterface $articleRepository) {
         $this->articleRepository= $articleRepository;
-        $this->storage = Redis::Connection();
     }
 
     /**
@@ -24,9 +23,16 @@ class ArticleController extends Controller{
      * @return Response
      */
     public function index(Request $request) {
-        $articles = $this->articleRepository->getSortedArticles('views');
+        $sort_by = '';
+        // sorting by popularity uses redis
+        // else we use the model
+        if($request->has('filter')) {
+            $sort_by = $request->get('filter');
+        }
+
+        $articles = $this->articleRepository->getSortedArticles($sort_by);
         // $articles = Article::where('status_id', '=', Msstatus::PUBLISHED)->get();
-        return view('article', ['articles' => $articles, 'views' => '0']);
+        return view('article', ['articles' => $articles]);
     }
 
     public function store() {
@@ -42,8 +48,8 @@ class ArticleController extends Controller{
      */
     public function show($id) {
         if($article = Article::find($id)) {
-            $views = $this->storage->incr('article:' . $id . ':views');
-            return view('article', ['articles' => [$article], 'views' => $views]);
+            $this->articleRepository->incrementViews($id);
+            return view('article', ['articles' => [$article]]);
         }
         
         // handle errors in view

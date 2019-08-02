@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Session;
 
 class Article extends Model
 {
@@ -19,6 +20,7 @@ class Article extends Model
         'status_id' => 'integer'
     ];
 
+    protected $appends = ['popularity'];
     public $fields = [
         'id' => 'article.id',
         'title' => 'article.title',
@@ -42,5 +44,14 @@ class Article extends Model
     public function status() {
         return $this->belongsTo(Msstatus::class, 'status_id', 'id');
     }
+    
+    public function getPopularityAttribute() {
+        $session_key = 'article:' . $this->id;
+        $view_count = 0;
+        if(Session::has($session_key)) {
+            $view_count = Session::get($session_key);
+        }
+        return $view_count;
+    } 
 }
 

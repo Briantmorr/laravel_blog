@@ -11,6 +11,6 @@
 |
 */
 
-Route::get('/', ['uses' =>'HomeController@index']);
+Route::get('/', ['uses' =>'ArticleController@index']);
 
 $router->resource('/article', 'ArticleController');
